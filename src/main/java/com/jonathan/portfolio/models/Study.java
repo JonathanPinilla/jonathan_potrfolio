@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDate;
 
 @Document(collection = "studies")
-public record Studies(
+public record Study(
         @Id
         String id,
         String institution,
