@@ -11,8 +11,8 @@ public record Project(
         @Id
         String id,
         String description,
-        List<Image> images,
+        List<String> imagesId,
         LocalDate date,
-        List<Tool> tools
+        List<String> toolsId
 ) {
 }

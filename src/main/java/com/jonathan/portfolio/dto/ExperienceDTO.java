@@ -1,14 +1,9 @@
-package com.jonathan.portfolio.models;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.jonathan.portfolio.dto;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Document(collection = "experience")
-public record Experience(
-        @Id
+public record ExperienceDTO(
         String id,
         String company,
         String jobTitle,
@@ -17,6 +12,5 @@ public record Experience(
         LocalDate startDate,
         LocalDate endDate,
         List<String> toolsId
-
 ) {
 }
