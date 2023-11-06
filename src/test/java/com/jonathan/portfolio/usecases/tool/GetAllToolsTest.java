@@ -48,6 +48,6 @@ class GetAllToolsTest {
     void databaseErrorScenario() {
         Mockito.when(toolRepository.findAll()).thenThrow(RuntimeException.class);
 
-        Assertions.assertThrows(RuntimeException.class, toolRepository::findAll);
+        Assertions.assertThrows(RuntimeException.class, getAllToolsUseCase::get);
     }
 }

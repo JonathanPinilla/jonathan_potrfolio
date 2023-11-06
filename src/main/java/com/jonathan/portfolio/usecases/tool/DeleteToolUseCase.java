@@ -1,23 +1,20 @@
 package com.jonathan.portfolio.usecases.tool;
 
-import com.jonathan.portfolio.models.Tool;
 import com.jonathan.portfolio.repository.IToolRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class GetAllToolsUseCase {
+public class DeleteToolUseCase {
 
     private final IToolRepository toolRepository;
 
-    public GetAllToolsUseCase(IToolRepository toolRepository) {
+    public DeleteToolUseCase(IToolRepository toolRepository) {
         this.toolRepository = toolRepository;
     }
 
-    public List<Tool> get() {
+    public void delete(String id) {
         try {
-            return toolRepository.findAll();
+            toolRepository.deleteById(id);
         } catch (Exception e) {
             throw new RuntimeException("The database transaction failed: " + e.getMessage());
         }

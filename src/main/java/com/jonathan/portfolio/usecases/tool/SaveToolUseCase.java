@@ -17,7 +17,7 @@ public class SaveToolUseCase {
         try {
             return toolRepository.save(tool);
         } catch (Exception e) {
-            throw new RuntimeException("The database did not respond: " + e.getMessage());
+            throw new RuntimeException("The database transaction failed: " + e.getMessage());
         }
     }
 }
