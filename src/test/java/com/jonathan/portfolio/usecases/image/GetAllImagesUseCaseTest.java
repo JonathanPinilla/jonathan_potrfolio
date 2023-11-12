@@ -21,18 +21,23 @@ class GetAllImagesUseCaseTest {
 
     @Test
     void successfulScenario() {
-        Image image = new Image("id", "name", "url", "alt");
-        Image image2 = new Image("id2", "name2", "url2", "alt2");
+        Image image = new Image("name", "url", "alt");
+        Image image2 = new Image("name2", "url2", "alt2");
 
         Mockito.when(imageRepository.findAllById(Mockito.anyList())).thenReturn(
                 List.of(image, image2)
         );
 
-        List<Image> images = getAllImagesUseCase.get(List.of("id", "id2"));
+        List<Image> images = getAllImagesUseCase.get(List.of(image.id(), image2.id()));
 
         Assertions.assertEquals(2, images.size());
-        Assertions.assertEquals("id", images.get(0).id());
-        Assertions.assertEquals("name2", images.get(1).name());
+        Assertions.assertEquals(image, images.get(0));
+        Assertions.assertEquals(image2, images.get(1));
+        Assertions.assertEquals(image.id(), images.get(0).id());
+        Assertions.assertEquals(image2.id(), images.get(1).id());
+        Assertions.assertEquals("name", images.get(0).name());
+        Assertions.assertEquals("url", images.get(0).url());
+
 
     }
 

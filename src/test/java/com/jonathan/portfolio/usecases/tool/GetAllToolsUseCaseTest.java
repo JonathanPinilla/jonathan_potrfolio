@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 class GetAllToolsUseCaseTest {
 
@@ -25,12 +24,10 @@ class GetAllToolsUseCaseTest {
     @Test
     void successfulScenario() {
         Tool tool1 = new Tool(
-                UUID.randomUUID().toString(),
                 "testTool1",
                 4
         );
         Tool tool2 = new Tool(
-                UUID.randomUUID().toString(),
                 "testTool2",
                 5
         );
@@ -54,22 +51,23 @@ class GetAllToolsUseCaseTest {
 
     @Test
     void successfulScenarioGetAllById() {
-        List<String> imagesId = Arrays.asList(UUID.randomUUID().toString(), UUID.randomUUID().toString());
 
         Tool tool1 = new Tool(
-                UUID.randomUUID().toString(),
                 "testTool1",
                 4
         );
         Tool tool2 = new Tool(
-                UUID.randomUUID().toString(),
                 "testTool2",
                 5
         );
 
-        Mockito.when(toolRepository.findAllById(imagesId)).thenReturn(Arrays.asList(tool1, tool2));
+        List<Tool> tools = Arrays.asList(tool1, tool2);
 
-        var result = getAllToolsUseCase.get(imagesId);
+        List<String> toolsId = Arrays.asList(tool1.id(), tool2.id());
+
+        Mockito.when(toolRepository.findAllById(toolsId)).thenReturn(tools);
+
+        var result = getAllToolsUseCase.get(toolsId);
 
         Assertions.assertEquals(tool1, result.get(0));
         Assertions.assertEquals(tool2, result.get(1));
@@ -78,11 +76,21 @@ class GetAllToolsUseCaseTest {
 
     @Test
     void databaseErrorScenarioGetAllById() {
-        List<String> imagesId = Arrays.asList(UUID.randomUUID().toString(), UUID.randomUUID().toString());
 
-        Mockito.when(toolRepository.findAllById(imagesId)).thenThrow(RuntimeException.class);
+        Tool tool1 = new Tool(
+                "testTool1",
+                4
+        );
+        Tool tool2 = new Tool(
+                "testTool2",
+                5
+        );
 
-        Assertions.assertThrows(RuntimeException.class, () -> getAllToolsUseCase.get(imagesId));
+        List<String> toolsId = Arrays.asList(tool1.id(), tool2.id());
+
+        Mockito.when(toolRepository.findAllById(toolsId)).thenThrow(RuntimeException.class);
+
+        Assertions.assertThrows(RuntimeException.class, () -> getAllToolsUseCase.get(toolsId));
 
     }
 }
